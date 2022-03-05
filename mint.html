@@ -417,8 +417,25 @@ personal information is needed to use the Mythia app.</a></nav></div><div data-h
   
   
   </div>
-  
 
+  <div id="nometa" class="modal">
+
+
+    <div data-w-id="daec03ce-904d-9897-4168-ac77eb91adc7" class="div-block-83 modal-content">
+      <div class="text-block-84">
+        <img src="Daco_5575399.png" width="35%"/>
+        <p style="font-size: 15px; margin-top: 50px;">
+          Metamask not present. <br>
+          Open this dapp in your metamask wallet or you need metamask extension installed on your browser.
+        </p>
+
+        <a href="Daco_5575399.png" class="sc-dkPtRN hLzqBE connect-wallet" label="Connect Wallet to Mint" style="color: #fff;" scale="md">Open dapp in Metamask.</a>
+      </div>
+      
+    </div>
+
+
+  </div>
 
 
     <script type="text/javascript">
@@ -549,8 +566,7 @@ personal information is needed to use the Mythia app.</a></nav></div><div data-h
         if(!isMetaMaskInstalled()) {
           //Metamask Extension not Installed
           console.log("Not web3 present");
-          alert("Open this website in your metamask wallet or you need metamask extension installed onn your browser");
-          
+          $("#nometa").show();          
         }
 
         else {
@@ -802,6 +818,7 @@ personal information is needed to use the Mythia app.</a></nav></div><div data-h
 
       window.addEventListener('load', async () => {
         //Window already loaded
+        
         
         MetaMaskClientCheck();
 
